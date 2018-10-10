@@ -7,15 +7,17 @@ use Illuminate\Http\Request;
 class DataReader extends Controller
 { 
 
+    public $db = null;
+
     public function construct() {
 
     }
 
-    public function excelReader () {
-
+    public function excelReader ( $type , $excel ) {
+        
     }
 
-    public function dataHandle() {
+    public function dataHandle( $excel ) {
 
     }
 }
