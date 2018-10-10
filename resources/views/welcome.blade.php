@@ -4,6 +4,13 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+<<<<<<< HEAD
+        <title>Laravel Vue CRUD Application</title>
+        <link href="{{asset('css/app.css')}}" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div id="app">
+=======
 
         <title>YJU_Recruit_Helper</title>
 
@@ -90,6 +97,13 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div> -->
             </div>
+>>>>>>> 960013e9f5a4e2b5ca43c7ddbdc2815ec21def0e
         </div>
+         <script>
+           window.Laravel = <?php echo json_encode([
+               'csrfToken' => csrf_token(),
+                    ]); ?>
+          </script>
+        <script src="{{asset('js/app.js')}}"></script>
     </body>
 </html>

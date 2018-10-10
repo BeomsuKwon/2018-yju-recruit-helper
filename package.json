@@ -17,7 +17,11 @@
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
         "vue": "^2.5.7",
+<<<<<<< HEAD
+        "vue-axios": "^2.1.4",
+=======
         "vue-axios": "^2.1.2",
+>>>>>>> 960013e9f5a4e2b5ca43c7ddbdc2815ec21def0e
         "vue-router": "^3.0.1",
         "vue-template-compiler": "^2.5.16"
     },
