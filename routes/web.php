@@ -11,10 +11,16 @@
 |
 */
 
+// Vue Access Point
 Route::get('/', function () {
     return view('welcome');
 });
+// Vue Access Point End
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+// Authentication
+Route::post('/login', 'Auth\LoginController@login');
+Route::post('/logout', 'Auth\LoginController@logout');
+Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::post('/password/reset', 'Auth\ForgotPasswordController@reset');
+Route::post('/register', 'Auth\RegisterController@register');
+// Authentication end
