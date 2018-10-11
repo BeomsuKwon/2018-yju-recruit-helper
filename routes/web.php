@@ -18,9 +18,12 @@ Route::get('/', function () {
 // Vue Access Point End
 
 // Authentication
-Route::post('/login', 'Auth\LoginController@login');
-Route::post('/logout', 'Auth\LoginController@logout');
-Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-Route::post('/password/reset', 'Auth\ForgotPasswordController@reset');
-Route::post('/register', 'Auth\RegisterController@register');
+Route::group(['namespace' => 'Auth'], function() 
+{
+    Route::post('/login', 'LoginController@login')->name('login');
+    Route::post('/logout', 'LoginController@logout')->name('logout');
+    Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password-email');
+    Route::post('/password/reset', 'ForgotPasswordController@reset')->name('password-reset');
+    Route::post('/register', 'RegisterController@register')->name('register');
+});
 // Authentication end
