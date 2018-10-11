@@ -9,12 +9,18 @@ Vue.use(VueAxios, axios);
 
 import App from './App.vue';
 import main from './components/main.vue';
+import signup_page from './components/signup';
 
 const routes = [
   {
       name: 'main',
       path: '/',
       component: main
+  },
+  {
+    name : 'signup',
+    path : '/signup',
+    component : signup_page
   }
 ];
 
