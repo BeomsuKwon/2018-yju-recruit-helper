@@ -10,16 +10,13 @@
                     로긴하쇼
                 </div>
                 <div>
-                    <input v-model="user_id">
+                    <input>
                 </div>
                 <div>
-                    <input v-model="user_pw">
+                    <input>
                 </div>
                 <div>
-                    <button @click="login_register">로긴</button>
-                    <router-link class="menu" :to="{name:'signup'}">
-                    회원가입
-                    </router-link>   
+                    <button>로긴</button>
                 </div>
             </div>
             <!-- <div id='menu-form'>
@@ -45,23 +42,8 @@
 
 <script>
     export default {
-        data(){
-            return {
-                user_id : '',
-                user_pw : ''
-            }
-        },
-        methods : {
-            login_register:function(){
-                let url = "/login"
-                let login_data = {
-                    email : this.user_id,
-                    password : this.user_pw
-                }
-                this.axios.post(url, login_data).then(response =>{
-                    console.log(response.data)
-                })
-            }
+        mounted() {
+            console.log('Component mounted.')
         }
     }
 </script>
