@@ -1301,8 +1301,77 @@ function applyToTag (styleElement, obj) {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["a"] = ({});
+/* harmony default export */ __webpack_exports__["a"] = ({
+    mounted: function mounted() {
+        this.getCookie();
+    },
+    data: function data() {
+        return {
+            user_id: null,
+            user_pw: null,
+            login_data: null
+        };
+    },
+
+    methods: {
+        login_register: function login_register() {
+            var _this = this;
+
+            var url = "Auth/login";
+            var login_data = {
+                id: this.user_id,
+                password: this.user_pw
+            };
+            this.axios.post(url, login_data).then(function (response) {
+                _this.login_data = {
+                    user_token: response.data._token,
+                    user_name: response.data.user.id
+                };
+            });
+            this.setCookie("userinfo", this.login_data, 7);
+        },
+
+        setCookie: function setCookie(name, value, time) {
+            //사용자 쿠키 값 저장
+            var date = new Date();
+            date.setTime(date.getTime() + time * 24 * 60 * 60 * 1000);
+            document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+        },
+
+        getCookie: function getCookie(name) {
+            // 사용자 쿠키 값 불러오기
+            var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+            return value ? value[2] : null;
+        }
+    }
+});
 
 /***/ }),
 /* 12 */
@@ -1425,47 +1494,8 @@ function normalizeComponent (
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
-/* harmony default export */ __webpack_exports__["a"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
-});
+/* harmony default export */ __webpack_exports__["a"] = ({});
 
 /***/ }),
 /* 14 */
@@ -16278,6 +16308,7 @@ var disposed = false
 function injectStyle (context) {
   if (disposed) return
   __webpack_require__(41)
+  __webpack_require__(49)
 }
 /* script */
 
@@ -16411,14 +16442,102 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c(
-      "div",
-      [_c("transition", { attrs: { name: "fade" } }, [_c("router-view")], 1)],
-      1
-    )
+    _c("div", [
+      _vm.login_data == null
+        ? _c("div", { attrs: { id: "login-form" } }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", [_vm._v("\n                로긴하쇼\n            ")]),
+            _vm._v(" "),
+            _c("div", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.user_id,
+                    expression: "user_id"
+                  }
+                ],
+                domProps: { value: _vm.user_id },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.user_id = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.user_pw,
+                    expression: "user_pw"
+                  }
+                ],
+                domProps: { value: _vm.user_pw },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.user_pw = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("button", { on: { click: _vm.login_register } }, [
+                  _vm._v("로긴")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  { staticClass: "menu", attrs: { to: { name: "signup" } } },
+                  [_vm._v("\n                회원가입\n                ")]
+                )
+              ],
+              1
+            )
+          ])
+        : _vm.login_data != null
+          ? _c(
+              "div",
+              [
+                _c(
+                  "transition",
+                  { attrs: { name: "fade" } },
+                  [_c("router-view")],
+                  1
+                )
+              ],
+              1
+            )
+          : _vm._e()
+    ]),
+    _vm._v(" "),
+    _c("div")
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { attrs: { id: "logo" } }, [
+      _c("span", [_vm._v("JungPro.com")])
+    ])
+  }
+]
 render._withStripped = true
 
 if (false) {
@@ -16522,7 +16641,7 @@ exports = module.exports = __webpack_require__(9)(false);
 
 
 // module
-exports.push([module.i, "\n.container{\n    display: grid;\n    grid-template-rows: 1fr 1fr 1fr;\n    margin: auto;\n    background: rgb(235, 235, 235);\n    height: 100vh;\n}\n#logo{\n    text-align: center;\n    font-size: 7em;\n}\n#login-form{\n    width: 30vw;\n    margin: auto;\n    display: grid;\n    grid-template-rows: 1fr 1fr 1fr 1fr;\n}\n#login-form div{\n    margin: auto;\n}\n#menu-form{\n    width: 50vw;\n    margin: auto;\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    text-align: center;\n    cursor: pointer;\n    grid-row-gap: 1vw;\n    grid-column-gap: 1vw;\n}\n#menu-form div{\n    height: 30vh;\n    display: flex;\n    background: rgb(106, 106, 126);\n    transition: 0.5s;\n    align-items: center;\n}\n#menu-form div:hover{\n    background: rgb(56, 56, 241);\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -16538,34 +16657,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [_vm._v("\n    main\n\n")])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { attrs: { id: "logo" } }, [
-        _c("span", [_vm._v("JungPro.com")])
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _c("div", { attrs: { id: "login-form" } }, [
-          _c("div", [_vm._v("\n                로긴하쇼\n            ")]),
-          _vm._v(" "),
-          _c("div", [_c("input")]),
-          _vm._v(" "),
-          _c("div", [_c("input")]),
-          _vm._v(" "),
-          _c("div", [_c("button", [_vm._v("로긴")])])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 if (false) {
@@ -16574,6 +16668,47 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-54afe9e0", { render: render, staticRenderFns: staticRenderFns })
   }
 }
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(50);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(10).default
+var update = add("416e253b", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=1!./App.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=1!./App.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(9)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.container{\n    display: grid;\n    grid-template-rows: 1fr 1fr 1fr;\n    margin: auto;\n    background: rgb(235, 235, 235);\n    height: 100vh;\n}\n#logo{\n    text-align: center;\n    font-size: 7em;\n}\n#login-form{\n    width: 30vw;\n    margin: auto;\n}\n#login-form div{\n    margin: auto;\n}\n#menu-form{\n    width: 50vw;\n    margin: auto;\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    text-align: center;\n    cursor: pointer;\n    grid-row-gap: 1vw;\n    grid-column-gap: 1vw;\n}\n#menu-form div{\n    height: 30vh;\n    display: flex;\n    background: rgb(106, 106, 126);\n    transition: 0.5s;\n    align-items: center;\n}\n#menu-form div:hover{\n    background: rgb(56, 56, 241);\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
