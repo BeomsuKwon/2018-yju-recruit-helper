@@ -1,55 +1,87 @@
 <template>
     <div class="container">
-        <div>
-            <div id='login-form' v-if='login_data==null'>
-                <div id="logo">
-                    <span>JungPro.com</span>
+            <header>
+                 <span>JUNGPRO</span>
+                 
+            </header>
+            <section>
+                <div class="section-Parent">
+                    <!-- <div id='login-form' v-if='login_data==null'>
+                        <div id="logo">
+                            <span>JUNGPRO</span>
+                        </div>
+                        <div>
+                            <input v-model="user_id">
+                        </div>
+                        <div>
+                            <input v-model="user_pw">
+                        </div>
+                        <div>
+                            <button @click="login_register">로긴</button>
+                        </div>
+                    </div>
+                    <div v-else-if="login_data!=null">
+                        <transition name="fade">
+                            <router-view></router-view>
+                        </transition>
+                    </div> -->
+                     <div>
+                        <transition name="fade">
+                            <router-view></router-view>
+                        </transition>
+                    </div>
                 </div>
-                <div>
-                    로긴하쇼
-                </div>
-                <div>
-                    <input v-model="user_id">
-                </div>
-                <div>
-                    <input v-model="user_pw">
-                </div>
-                <div>
-                    <button @click="login_register">로긴</button>
-                    <router-link class="menu" :to="{name:'signup'}">
-                    회원가입
-                    </router-link>   
-                </div>
-            </div>
-            <div v-else-if="login_data!=null">
-                <transition name="fade">
-                    <router-view></router-view>
-                </transition>
-            </div>
-        </div>
-
-        <div></div>
-   
-      
+            </section>
     </div>
 </template>
 
-<style>
+<style scoped>
+    @import url("https://fonts.googleapis.com/css?family=Krub");
 
+    body{
+        background-color: rgb(240, 240, 240);
+    }
     .fade-enter-active, .fade-leave-active {
       transition: opacity .5s
     }
     .fade-enter, .fade-leave-active {
       opacity: 0
     }
+    .container{
+        display: grid;
+        grid-template-rows: 8% 92%;
+        margin: auto;
+        width: 100vw;
+        height: 100vh;
+    }
+    header{
+        display: flex;
+        align-items: center;
+        border-bottom: 1.5px solid rgb(204, 204, 204);
+    }
+    header > span{
+        margin-left: 30px;
+        font-family: 'Krub', sans-serif;
+        font-size: 2em;
+    }
+    footer{
+        background: red;
+    }
+    .section-Parent{
+        margin: auto;
+        width: 70vw;
+    }
+    .section-Parent div{
+        margin: auto;
+    }
+
 </style>
 
 <script>
      export default {
             mounted(){
-                this.getCookie();
-            },
-
+                
+            },   
             data(){
                 return {
                     user_id : null,
@@ -71,8 +103,21 @@
                         }
 
                     })
-                    this.setCookie("userinfo",this.login_data,7)
+                    this.setCookie(userinfo,this.login_data,7)
                 },
+                // login_stauts : function(){ //로그인 인증 절차
+                //     let url = "Auth/login"
+                //     let login_data = {
+                //         user_key : this.getCookie('user_key')
+                //     }
+                //     if(this.getCookie('user_key')!=null){
+                //         this.axios.post(url,key).then(respones=>{
+                //         this.login_status = respones.data;    
+                //         })
+                //     }else{
+                //         this.login_status=false;
+                //     }
+                // },
 
                 setCookie:function(name,value,time) {   //사용자 쿠키 값 저장
                     let date = new Date();
@@ -87,44 +132,3 @@
             }
     }
 </script>
-<style>
-        .container{
-        display: grid;
-        grid-template-rows: 1fr 1fr 1fr;
-        margin: auto;
-        background: rgb(235, 235, 235);
-        height: 100vh;
-    }
-    #logo{
-        text-align: center;
-        font-size: 7em;
-    }
-    #login-form{
-        width: 30vw;
-        margin: auto;
-
-    }
-    #login-form div{
-        margin: auto;
-    }
-    #menu-form{
-        width: 50vw;
-        margin: auto;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        text-align: center;
-        cursor: pointer;
-        grid-row-gap: 1vw;
-        grid-column-gap: 1vw;
-    }
-    #menu-form div{
-        height: 30vh;
-        display: flex;
-        background: rgb(106, 106, 126);
-        transition: 0.5s;
-        align-items: center;
-    }
-    #menu-form div:hover{
-        background: rgb(56, 56, 241);
-    }
-</style>
