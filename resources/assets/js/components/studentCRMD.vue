@@ -1,6 +1,6 @@
 <template>
     <div>
-
+        학생 추가
     </div>
 </template>
 

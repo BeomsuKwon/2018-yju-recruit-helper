@@ -2,34 +2,27 @@
     <div class="container">
             <header>
                  <span>JUNGPRO</span>
-                 
+                 <button @click=logout>logout</button>
             </header>
             <section>
                 <div class="section-Parent">
-                    <!-- <div id='login-form' v-if='login_data==null'>
-                        <div id="logo">
-                            <span>JUNGPRO</span>
-                        </div>
+                    <div id='login-form' v-if='login_data==null'>
                         <div>
                             <input v-model="user_id">
                         </div>
                         <div>
-                            <input v-model="user_pw">
+                            <input v-model="user_pw" v-on:keyup.enter="login_register">
                         </div>
                         <div>
-                            <button @click="login_register">로긴</button>
+                            <button @click="login_register" v-on:keyup.enter="login_register">로긴</button>
                         </div>
                     </div>
                     <div v-else-if="login_data!=null">
                         <transition name="fade">
                             <router-view></router-view>
                         </transition>
-                    </div> -->
-                     <div>
-                        <transition name="fade">
-                            <router-view></router-view>
-                        </transition>
                     </div>
+                    
                 </div>
             </section>
     </div>
@@ -80,13 +73,13 @@
 <script>
      export default {
             mounted(){
-                
+                 this.login_stauts();
             },   
             data(){
                 return {
                     user_id : null,
                     user_pw : null,
-                    login_data : null
+                    login_data : null,
                 }
             },
             methods : {
@@ -98,37 +91,40 @@
                     }
                     this.axios.post(url, login_data).then(response =>{
                         this.login_data = {
-                            user_token : response.data._token,
-                            user_name : response.data.user.id
-                        }
-
+                            user_token  : response.data._token,
+                            user_name   : response.data.user.id
+                           
+                        } 
+                         this.$cookie.set('userinfo', JSON.stringify(this.login_data.user_token),7)
+                         this.user_id=null;
+                         this.user_pw=null;
                     })
-                    this.setCookie(userinfo,this.login_data,7)
+                  
+                 
                 },
-                // login_stauts : function(){ //로그인 인증 절차
-                //     let url = "Auth/login"
-                //     let login_data = {
-                //         user_key : this.getCookie('user_key')
-                //     }
-                //     if(this.getCookie('user_key')!=null){
-                //         this.axios.post(url,key).then(respones=>{
-                //         this.login_status = respones.data;    
-                //         })
-                //     }else{
-                //         this.login_status=false;
-                //     }
-                // },
+                login_stauts : function(){ //로그인 인증 절차
+                    let url = "Auth/니가채우셈" 
+                    let user_key = {
+                        너가바꾸셈 : this.$cookie.get('userinfo')
+                    }
+                    if(this.$cookie.get('userinfo')!=null){
+                        this.axios.post(url,user_key).then(respones=>{
+                         this.login_data = {
+                            user_token  : response.data._token,
+                            user_name   : response.data.user.id
+                        }    
+                        })
+                    
+                    }else{
+                          this.login_data=null;
+                    }
+                },
+                logout : function(){
+                    this.login_data=null
+                    this.$cookie.delete('userinfo')
+                    
+                }
 
-                setCookie:function(name,value,time) {   //사용자 쿠키 값 저장
-                    let date = new Date();
-                    date.setTime(date.getTime() + time*24*60*60*1000);
-                    document.cookie =  name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
-                },
-
-                getCookie:function(name) {              // 사용자 쿠키 값 불러오기
-                    var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-                    return value? value[2] : null;
-                },
             }
     }
 </script>

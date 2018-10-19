@@ -1,6 +1,6 @@
 <template>
     <div>
-
+        기업스케쥴
     </div>
 </template>
 
